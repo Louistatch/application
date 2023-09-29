@@ -1,0 +1,68 @@
+{%load static %}
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- ===============================================-->
+  <!--    Document Title-->
+  <!-- ===============================================-->
+  <title>AGRO CROWN | Amenagement, Entreprise &amp; Affaire</title>
+
+  <!-- ===============================================-->
+  <!--    Favicons-->ù
+  <!-- ===============================================-->
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicons/favicon.ico' %}">
+  <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}">
+  <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/mstile-150x150.png' %}">
+  <meta name="theme-color" content="#ffffff">
+
+  <!-- ===============================================-->
+  <!--    Stylesheets-->
+  <!-- ===============================================-->
+  <link href="{% static 'assets/css/theme.min.css' %}" rel="stylesheet" />
+</head>
+
+<main class="main" id="top">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-1 bg-light opacity-85" data-navbar-on-scroll="data-navbar-on-scroll">
+    <div class="container" >
+      <a class="navbar-brand" href="{% url 'index' %}">
+        <img class="d-inline-block align-top img-fluid" src="{% static 'assets/img/gallery/logo-icon.png' %}" alt="" width="50" />
+        <span class="text-theme font-monospace fw-semi-bold mb-1 fs-4 ps-2">AGROCROWN</span>
+      </a>
+      <div class="navbar-collapse border-top border-lg-2 mt-4 mt-lg-5 d-flex justify-content-between flex-wrap">
+        <a class="nav-link fw-medium px-2" aria-current="page" href="{% url 'index' %}">Acceuil</a>
+        <a class="nav-link fw-medium px-2" href="{% url 'opportunite' %}">Opportunité</a>
+        <a class="nav-link fw-medium px-2" href="{% url 'Temoignage' %}">Témoignage</a>
+        <a class="nav-link fw-medium px-2" href="{% url 'Investir' %}">Investir</a>
+        <a class="nav-link fw-medium px-2" href="{% url 'elearning' %}">Formation en ligne</a>
+        <a class="nav-link fw-medium px-2" href="">Contact</a>
+        {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}" class="btn btn-info btn-green bg-gradient order-0" type="submit">Deconnexion</a>
+        {% else %}
+        <a href="{% url 'login_blog' %}" class="btn btn-info btn-green bg-gradient order-0" type="submit">Connectez-vous</a>
+        {% endif %}
+        <form class="form-inline" action="{% url 'search' %}">
+          <div class="md-form my-0">
+            <input type="text" class="form-control mr-sm-2" placeholder="Recherche" aria-label="search" name="article">
+          </div>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <!-- Rest of your content -->
+</main>
+
+
+  <!-- Rest of your content -->
+
+<script src="{% static 'vendors/@popperjs/popper.min.js' %}"></script>
+<script src="{% static 'vendors/bootstrap/bootstrap.min.js' %}"></script>
+<script src="{% static 'vendors/is/is.min.js' %}"></script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+<script src="{% static 'assets/js/theme.js' %}"></script>
+<link href="https://fonts.googleapis.com/css2?family=Chivo:wght@300;400;700;900&amp;display=swap" rel="stylesheet"> 
+</main>

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container md-5" >
+    <div class="row">
+        <div class="col-md-12">
+            <form action="" method="POST" style="margin: 200px;">
+                {% csrf_token %}
+                <p>Voulez-vous supprimer cet article({{object}})?</p>
+                <input type="submit" value="supprimer" class="btn btn-danger"> 
+                <a href="{% url 'my-articles' %}" class="btn btn-secondary">Non</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock  %}

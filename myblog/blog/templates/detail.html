@@ -1,0 +1,45 @@
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% autoescape off %}
+
+{% load static %}
+
+<html lang="en-US" dir="ltr">
+
+<div class="container" style="margin: 50px">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="container text-center" style="margin-top: 100px;">
+                <h2 class="text-center">Bienvenue sur notre Blog</h2>
+            </div>               
+             <img src="{{article.image.url}}" alt="" style="max-width: 500px;">
+                <h2>{{article.title}} </h2>
+                <p>{{article.desc}}</p>
+                <h5>Frais de Formation :{{article.price}} FCFA</h5>
+                <h5>Nombre d'heure:{{article.duration_in_hours}} heure</h5>
+        </div>
+        <div class="col-md-4" style="margin-top: 100px;">
+            <h3 class="mt-2">Les articles en relations</h3 class="mt-2">
+              <div class="row">
+                {% for art in aer %}
+                {% if art.id != article.id %}
+                <div class="col-md-8 mb-2">
+                    <img src="{{art.image.url}}" alt="" style="max-width:200px;">   
+                </div>
+                <div class="col-4">
+                <a href="{% url 'detail' art.id %}"><strong>{{ art.title }}</strong> <br></a>
+                {% csrf_token %}
+                {{form|truncatewords:6}}
+                </div>
+                {% endif %}
+                {% endfor %}
+              </div>             
+        </div>
+    </div>
+</div>
+{% endautoescape %}
+
+{% endblock %}
