@@ -8,7 +8,7 @@ from pathlib import Path
 
 import fitz  # PyMuPDF
 
-from rag.retriever import KabyleRetriever, COLLECTION_DICT, COLLECTION_BIBLE
+from rag.retriever import KabyeRetriever, COLLECTION_DICT, COLLECTION_BIBLE
 
 
 def chunk_text(text: str, chunk_size: int = 300, overlap: int = 50) -> list[str]:
@@ -24,7 +24,7 @@ def chunk_text(text: str, chunk_size: int = 300, overlap: int = 50) -> list[str]
 
 
 def extract_pdf_dictionary(pdf_path: str) -> list[dict]:
-    """Extract entries from a French-Kabyle dictionary PDF."""
+    """Extract entries from a Français-Kabyè dictionary PDF."""
     doc = fitz.open(pdf_path)
     entries = []
     full_text = ""
@@ -44,15 +44,15 @@ def extract_pdf_dictionary(pdf_path: str) -> list[dict]:
 
 
 def transcribe_audio(audio_path: str, model_size: str = "medium") -> str:
-    """Transcribe Kabyle audio using Whisper."""
+    """Transcribe audio Kabyè using Whisper."""
     import whisper
     model = whisper.load_model(model_size)
-    result = model.transcribe(audio_path, language="fr")  # closest supported, will still capture kabyle phonemes
+    result = model.transcribe(audio_path, language="fr")  # closest supported, will still capture Kabyè phonemes
     return result["text"]
 
 
 def ingest_dictionary(pdf_path: str):
-    retriever = KabyleRetriever()
+    retriever = KabyeRetriever()
     print(f"Extracting dictionary from {pdf_path}...")
     entries = extract_pdf_dictionary(pdf_path)
     texts = [e["text"] for e in entries]
@@ -63,7 +63,7 @@ def ingest_dictionary(pdf_path: str):
 
 
 def ingest_audio(audio_path: str, whisper_model: str = "medium"):
-    retriever = KabyleRetriever()
+    retriever = KabyeRetriever()
     print(f"Transcribing audio {audio_path} with Whisper {whisper_model}...")
     text = transcribe_audio(audio_path, whisper_model)
     chunks = chunk_text(text, chunk_size=200, overlap=30)
@@ -92,9 +92,9 @@ def ingest_agro_seed_data():
         ("Élevage associé agriculture Kabyè: bovins, caprins, ovins, volailles. Fumier valorisé. Vente au marché de Kara. Période de soudure (juillet-août): pression sur stocks.", {"topic": "elevage"}),
         ("Calendrier des marchés hebdomadaires région KOZAH: KujukŸ(Dim)=Yàndÿ/Somdinà/Làzà. Hodo(Lun)=Piyà/Càƒÿ. CùlŸ(Mer)=Kàyàŋ/Sàràkàwàŋ. MàzàŋSam=Làzà/Làmà/PiyàLàw.", {"topic": "marches_kozah"}),
     ]
-    retriever = KabyleRetriever()
+    retriever = KabyeRetriever()
     texts = [d[0] for d in agro_data]
     metadatas = [d[1] for d in agro_data]
     ids = [str(uuid.uuid4()) for _ in agro_data]
-    count = retriever.add_documents("kabyle_agro", texts, metadatas, ids)
+    count = retriever.add_documents("kabye_agro", texts, metadatas, ids)
     print(f"Seeded {count} agro vocabulary entries.")

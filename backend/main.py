@@ -5,8 +5,8 @@ from config import settings
 from api.routes import router
 
 app = FastAPI(
-    title="Amẓarug Aqbayli n Tẓuṛt n Wakal",
-    description="AI Agronomist Agent — speaks and understands Kabyle",
+    title="Agronome Kabyè — Agriculture Togo Nord",
+    description="AI Agronomist Agent — speaks and understands Kabyè",
     version="1.0.0",
 )
 
@@ -23,7 +23,7 @@ app.include_router(router, prefix="/api/v1")
 
 @app.on_event("startup")
 async def startup():
-    print("Amẓarug Aqbayli n Tẓuṛt n Wakal — ready.")
+    print("Agronome Kabyè (Togo Nord) — ready.")
 
 
 if __name__ == "__main__":

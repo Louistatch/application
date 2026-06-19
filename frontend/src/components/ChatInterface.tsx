@@ -9,7 +9,7 @@ const WELCOME: Message = {
   id: "welcome",
   role: "assistant",
   content:
-    "Azul ! Nekk d amẓarug aqbayli n tẓuṛt n wakal. Ttxil-k, d-ini-yi-d acu tebɣiḍ ad tesineḍ ɣef tẓuṛt n wakal — s teqbaylit neɣ s tafransist.\n\n**Bonjour !** Je suis votre agronome kabyle. Posez vos questions sur l'agriculture — en kabyle ou en français.",
+    "Nte wiye! Maa tee agronome Kabyè. Tee cee kɛɛ tɔtɔna ɖe tɛ pɛ tẓuṛt n wakal — Kabyè kiŋ nɛ Français.\n\n**Bonjour !** Je suis votre agronome kabyè (Togo). Posez vos questions sur l'agriculture — en kabyè ou en français.",
   timestamp: new Date(),
 };
 
@@ -81,19 +81,19 @@ export default function ChatInterface() {
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-kabyle-sand bg-white rounded-t-2xl">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-kabye-sand bg-white rounded-t-2xl">
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-full bg-kabyle-blue flex items-center justify-center text-kabyle-gold font-bold text-lg">
+          <div className="w-10 h-10 rounded-full bg-kabye-blue flex items-center justify-center text-kabye-gold font-bold text-lg">
             ⴰ
           </div>
           <div>
-            <h1 className="font-semibold text-kabyle-blue text-sm">Amẓarug Aqbayli</h1>
-            <p className="text-xs text-gray-500">Agronome · Tẓuṛt n Wakal</p>
+            <h1 className="font-semibold text-kabye-blue text-sm">Agronome Kabyè</h1>
+            <p className="text-xs text-gray-500">Togo · Agriculture · Kabyè</p>
           </div>
         </div>
         <button
           onClick={() => setMessages([WELCOME])}
-          className="p-2 rounded-lg hover:bg-kabyle-sand transition-colors"
+          className="p-2 rounded-lg hover:bg-kabye-sand transition-colors"
           title="Effacer la conversation"
         >
           <Trash2 size={16} className="text-gray-400" />
@@ -107,9 +107,9 @@ export default function ChatInterface() {
         ))}
         {streaming && messages[messages.length - 1]?.content === "" && (
           <div className="flex justify-start mb-4">
-            <div className="bg-white border border-kabyle-sand rounded-2xl px-4 py-3 text-gray-400 text-sm">
+            <div className="bg-white border border-kabye-sand rounded-2xl px-4 py-3 text-gray-400 text-sm">
               <Loader2 size={14} className="animate-spin inline mr-2" />
-              Amẓarug yettwakkes...
+              Agronome Kabyè tee cɔɔ...
             </div>
           </div>
         )}
@@ -117,22 +117,22 @@ export default function ChatInterface() {
       </div>
 
       {/* Input */}
-      <div className="p-4 bg-white border-t border-kabyle-sand rounded-b-2xl">
+      <div className="p-4 bg-white border-t border-kabye-sand rounded-b-2xl">
         <div className="flex items-end gap-2">
           <textarea
             ref={textareaRef}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Awal-ik/m... (Écrivez en kabyle ou en français)"
+            placeholder="Awal-ik/m... (Écrivez en kabyè ou en français)"
             rows={1}
-            className="flex-1 resize-none border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-kabyle-blue max-h-32 overflow-y-auto"
+            className="flex-1 resize-none border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-kabye-blue max-h-32 overflow-y-auto"
             style={{ minHeight: "40px" }}
           />
           <button
             onClick={handleSend}
             disabled={streaming || !input.trim()}
-            className="p-2.5 bg-kabyle-blue text-white rounded-xl hover:bg-opacity-90 disabled:opacity-40 transition-all"
+            className="p-2.5 bg-kabye-blue text-white rounded-xl hover:bg-opacity-90 disabled:opacity-40 transition-all"
           >
             <Send size={16} />
           </button>

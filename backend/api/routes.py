@@ -7,16 +7,16 @@ from api.schemas import (
     TranslationRequest, TranslationResponse,
     IngestRequest,
 )
-from agent.kabyle_agent import KabyleAgroAgent
+from agent.kabye_agent import KabyeAgroAgent
 
 router = APIRouter()
 _agent = None
 
 
-def get_agent() -> KabyleAgroAgent:
+def get_agent() -> KabyeAgroAgent:
     global _agent
     if _agent is None:
-        _agent = KabyleAgroAgent()
+        _agent = KabyeAgroAgent()
     return _agent
 
 
@@ -112,4 +112,4 @@ async def upload_audio(file: UploadFile = File(...)):
 
 @router.get("/health")
 async def health():
-    return {"status": "ok", "agent": "Amẓarug Aqbayli n Tẓuṛt n Wakal"}
+    return {"status": "ok", "agent": "Agronome Kabyè — Togo Nord"}

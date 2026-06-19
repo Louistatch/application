@@ -5,7 +5,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        kabyle: {
+        kabye: {
           blue: "#1a3c5e",
           gold: "#c9a227",
           green: "#2d6a4f",

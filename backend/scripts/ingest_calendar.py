@@ -4,7 +4,7 @@ Ingestion du calendrier Kabyè 2023 (Académie Kabiyè, Togo).
 import sys, os, uuid
 sys.path.insert(0, os.path.dirname(os.path.dirname(__file__)))
 
-from rag.retriever import KabyleRetriever
+from rag.retriever import KabyeRetriever
 
 CALENDAR_DATA = [
     # Jours de la semaine
@@ -42,11 +42,11 @@ CALENDAR_DATA = [
 
 
 def ingest_calendar():
-    retriever = KabyleRetriever()
+    retriever = KabyeRetriever()
     texts = [d[0] for d in CALENDAR_DATA]
     metadatas = [d[1] for d in CALENDAR_DATA]
     ids = [str(uuid.uuid4()) for _ in CALENDAR_DATA]
-    count = retriever.add_documents("kabyle_dictionary", texts, metadatas, ids)
+    count = retriever.add_documents("kabye_dictionary", texts, metadatas, ids)
     print(f"Calendrier Kabyè 2023 indexé: {count} entrées.")
 
 

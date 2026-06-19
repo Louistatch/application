@@ -3,7 +3,7 @@ CLI ingestion script.
 Usage:
   python -m scripts.ingest --seed
   python -m scripts.ingest --dict path/to/dictionnaire.pdf
-  python -m scripts.ingest --audio path/to/bible_kabyle.mp3
+  python -m scripts.ingest --audio path/to/bible_kabye.mp3
 """
 import argparse
 import sys
@@ -15,10 +15,10 @@ from rag.pipeline import ingest_dictionary, ingest_audio, ingest_agro_seed_data
 
 
 def main():
-    parser = argparse.ArgumentParser(description="Kabyle RAG data ingestion")
+    parser = argparse.ArgumentParser(description="Kabyè RAG data ingestion")
     parser.add_argument("--seed", action="store_true", help="Seed base agro vocabulary")
-    parser.add_argument("--dict", type=str, help="Path to French-Kabyle dictionary PDF")
-    parser.add_argument("--audio", type=str, help="Path to Kabyle audio file (MP3/WAV)")
+    parser.add_argument("--dict", type=str, help="Path to Français-Kabyè dictionary PDF")
+    parser.add_argument("--audio", type=str, help="Path to audio Kabyè file (MP3/WAV)")
     parser.add_argument("--whisper-model", type=str, default="medium", help="Whisper model size")
     args = parser.parse_args()
 

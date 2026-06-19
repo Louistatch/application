@@ -1,10 +1,10 @@
 import anthropic
 
 from config import settings
-from agent.prompts import SYSTEM_PROMPT_KABYE as SYSTEM_PROMPT_KABYLE, TRANSLATION_PROMPT
+from agent.prompts import SYSTEM_PROMPT_KABYE as SYSTEM_PROMPT_KABYE, TRANSLATION_PROMPT
 
 
-class KabyleAgroAgent:
+class KabyeAgroAgent:
     def __init__(self):
         self.client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
         self.model = settings.claude_model
@@ -12,8 +12,8 @@ class KabyleAgroAgent:
 
     def _get_retriever(self):
         if self._retriever is None:
-            from rag.retriever import KabyleRetriever
-            self._retriever = KabyleRetriever()
+            from rag.retriever import KabyeRetriever
+            self._retriever = KabyeRetriever()
         return self._retriever
 
     def _build_context(self, query: str) -> str:
@@ -30,7 +30,7 @@ class KabyleAgroAgent:
 
     def chat(self, message: str, history: list[dict]) -> str:
         context = self._build_context(message)
-        system = SYSTEM_PROMPT_KABYLE
+        system = SYSTEM_PROMPT_KABYE
         if context:
             system += f"\n\n{context}"
 
@@ -45,7 +45,7 @@ class KabyleAgroAgent:
 
     def stream_chat(self, message: str, history: list[dict]):
         context = self._build_context(message)
-        system = SYSTEM_PROMPT_KABYLE
+        system = SYSTEM_PROMPT_KABYE
         if context:
             system += f"\n\n{context}"
 
@@ -61,9 +61,9 @@ class KabyleAgroAgent:
 
     def translate(self, text: str, direction: str = "fr_to_kab") -> str:
         if direction == "fr_to_kab":
-            prompt = f"Traduis ce texte français en kabyle (avec translittération latine):\n\n{text}"
+            prompt = f"Traduis ce texte français en kabyè (avec translittération):\n\n{text}"
         else:
-            prompt = f"Traduis ce texte kabyle en français:\n\n{text}"
+            prompt = f"Traduis ce texte kabyè en français:\n\n{text}"
 
         context = self._build_context(text)
         system = TRANSLATION_PROMPT

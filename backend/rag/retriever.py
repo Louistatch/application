@@ -1,11 +1,11 @@
 from rag.embeddings import get_or_create_collection
 
-COLLECTION_DICT = "kabyle_dictionary"
-COLLECTION_BIBLE = "kabyle_bible"
-COLLECTION_AGRO = "kabyle_agro"
+COLLECTION_DICT = "kabye_dictionary"
+COLLECTION_BIBLE = "kabye_bible"
+COLLECTION_AGRO = "kabye_agro"
 
 
-class KabyleRetriever:
+class KabyeRetriever:
     def __init__(self):
         self._collections = None
 

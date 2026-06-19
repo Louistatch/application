@@ -1,10 +1,10 @@
 "use client";
 
 const QUESTIONS = [
-  "Amek ara aberreɣ uzemmur?",
-  "Iman n tsaliḥt n iɣessiren",
-  "Comment traiter les parasites de l'olivier?",
-  "Calendrier de semailles kabyle",
+  "ÑûmŸ tee laa wiye? (Comment planter l'igname?)",
+  "MòSòGúM tee cee ɖe tɛ pɛ? (Que faire en juin?)",
+  "Comment traiter les parasites du sorgho?",
+  "Calendrier agricole kabyè 2023",
 ];
 
 export default function QuickQuestions() {
@@ -21,13 +21,13 @@ export default function QuickQuestions() {
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-kabyle-sand p-4">
-      <h3 className="text-kabyle-blue font-semibold text-xs mb-2">Questions rapides</h3>
+    <div className="bg-white rounded-2xl border border-kabye-sand p-4">
+      <h3 className="text-kabye-blue font-semibold text-xs mb-2">Questions rapides</h3>
       <div className="space-y-1.5 text-xs">
         {QUESTIONS.map((q) => (
           <button
             key={q}
-            className="w-full text-left px-2 py-1.5 bg-kabyle-sand rounded-lg text-gray-700 hover:bg-kabyle-gold hover:text-white transition-colors"
+            className="w-full text-left px-2 py-1.5 bg-kabye-sand rounded-lg text-gray-700 hover:bg-kabye-gold hover:text-white transition-colors"
             onClick={() => fill(q)}
           >
             {q}

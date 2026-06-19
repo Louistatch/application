@@ -12,15 +12,15 @@ export default function ChatMessage({ message }: Props) {
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}>
       {!isUser && (
-        <div className="w-9 h-9 rounded-full bg-kabyle-blue flex items-center justify-center text-kabyle-gold font-bold text-sm mr-2 shrink-0">
+        <div className="w-9 h-9 rounded-full bg-kabye-blue flex items-center justify-center text-kabye-gold font-bold text-sm mr-2 shrink-0">
           ⴰ
         </div>
       )}
       <div
         className={`max-w-[75%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
           isUser
-            ? "bg-kabyle-blue text-white rounded-br-sm"
-            : "bg-white border border-kabyle-sand text-gray-800 rounded-bl-sm shadow-sm"
+            ? "bg-kabye-blue text-white rounded-br-sm"
+            : "bg-white border border-kabye-sand text-gray-800 rounded-bl-sm shadow-sm"
         }`}
       >
         {isUser ? (
@@ -30,7 +30,7 @@ export default function ChatMessage({ message }: Props) {
             components={{
               p: ({ children }) => <p className="mb-1 last:mb-0">{children}</p>,
               strong: ({ children }) => (
-                <strong className="font-semibold text-kabyle-blue">{children}</strong>
+                <strong className="font-semibold text-kabye-blue">{children}</strong>
               ),
             }}
           >
@@ -45,7 +45,7 @@ export default function ChatMessage({ message }: Props) {
         </span>
       </div>
       {isUser && (
-        <div className="w-9 h-9 rounded-full bg-kabyle-gold flex items-center justify-center text-white font-bold text-sm ml-2 shrink-0">
+        <div className="w-9 h-9 rounded-full bg-kabye-gold flex items-center justify-center text-white font-bold text-sm ml-2 shrink-0">
           U
         </div>
       )}
