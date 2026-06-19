@@ -3,6 +3,31 @@ import anthropic
 from config import settings
 from agent.prompts import SYSTEM_PROMPT_KABYE as SYSTEM_PROMPT_KABYE, TRANSLATION_PROMPT
 
+_nllb_tokenizer = None
+_nllb_model = None
+
+NLLB_MODEL_ID = "facebook/nllb-200-distilled-600M"
+LANG_FR  = "fra_Latn"
+LANG_KBP = "kbp_Latn"
+
+
+def _get_nllb():
+    global _nllb_tokenizer, _nllb_model
+    if _nllb_tokenizer is None:
+        from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+        _nllb_tokenizer = AutoTokenizer.from_pretrained(NLLB_MODEL_ID)
+        _nllb_model = AutoModelForSeq2SeqLM.from_pretrained(NLLB_MODEL_ID)
+    return _nllb_tokenizer, _nllb_model
+
+
+def nllb_translate(text: str, src: str, tgt: str, max_length: int = 512) -> str:
+    tok, model = _get_nllb()
+    tok.src_lang = src
+    inputs = tok(text, return_tensors="pt", padding=True, truncation=True, max_length=512)
+    tgt_id = tok.convert_tokens_to_ids(tgt)
+    out = model.generate(**inputs, forced_bos_token_id=tgt_id, max_length=max_length)
+    return tok.decode(out[0], skip_special_tokens=True)
+
 
 class KabyeAgroAgent:
     def __init__(self):
@@ -61,19 +86,6 @@ class KabyeAgroAgent:
 
     def translate(self, text: str, direction: str = "fr_to_kab") -> str:
         if direction == "fr_to_kab":
-            prompt = f"Traduis ce texte français en kabyè (avec translittération):\n\n{text}"
+            return nllb_translate(text, src=LANG_FR, tgt=LANG_KBP)
         else:
-            prompt = f"Traduis ce texte kabyè en français:\n\n{text}"
-
-        context = self._build_context(text)
-        system = TRANSLATION_PROMPT
-        if context:
-            system += f"\n\nIsallen n umawal:\n{context}"
-
-        response = self.client.messages.create(
-            model=self.model,
-            max_tokens=1024,
-            system=system,
-            messages=[{"role": "user", "content": prompt}],
-        )
-        return response.content[0].text
+            return nllb_translate(text, src=LANG_KBP, tgt=LANG_FR)
