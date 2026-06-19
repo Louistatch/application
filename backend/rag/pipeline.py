@@ -74,23 +74,23 @@ def ingest_audio(audio_path: str, whisper_model: str = "medium"):
 
 
 def ingest_agro_seed_data():
-    """Seed the agro collection with core Kabyle agricultural vocabulary."""
+    """Seed the agro collection with core Kabyè agricultural vocabulary (Togo)."""
     agro_data = [
-        ("Aẓar (racine) / Tafekka (souche)", {"topic": "anatomie_plante"}),
-        ("Azemmur (olivier) - arbre emblématique de Kabylie. Taqlit n uzemmur = feuille d'olivier.", {"topic": "arbre_fruitier"}),
-        ("Ithran (figuier) - Tha'ourt = figue. Récolte en août-septembre.", {"topic": "arbre_fruitier"}),
-        ("Amzur (vigne) / Aẓyul (raisin). Récolte en septembre.", {"topic": "vigne"}),
-        ("Amezruy n tsekla (histoire du jardinage): rotation des cultures = tamsettit n yibuyaden", {"topic": "technique_culture"}),
-        ("Aman (eau) - irrigation: aseggaẓ n iman. Arrosage goutte à goutte = aman wis wis.", {"topic": "irrigation"}),
-        ("Aberchum (compost) - engrais naturel. Aserreḥ n wakal = fertilisation du sol.", {"topic": "fertilisation"}),
-        ("Tafat (soleil) - exposition. Timura tikerrist = terres exposées au sud.", {"topic": "exposition"}),
-        ("Iḥenjiren (plants / semis). Asemli (graine/semence). Azag (sillon).", {"topic": "semis"}),
-        ("Agerdal (jardin potager). Aḥric (parcelle). Azagur (champ cultivé).", {"topic": "espace_culture"}),
-        ("Taɣellist (maladie / parasite). Izerman (insectes ravageurs). Tazart (ver).", {"topic": "phytosanite"}),
-        ("Tamacahutt n wakal Aqbayli: rotation triannuelle - froment / légumineuses / jachère.", {"topic": "savoir_ancestral"}),
-        ("Ifeggagen (pois chiches) - Ibawen (fèves) - Tiẓumert (lentilles). Légumineuses kabyliennes.", {"topic": "legumineuses"}),
-        ("Tameddit n unebdu (calendrier agricole): Mars-Avril = semailles de printemps. Octobre = labours.", {"topic": "calendrier"}),
-        ("Aberru (taille / élagage). Aberru n uzemmur = taille de l'olivier. Techniques traditionnelles kabyles.", {"topic": "taille"}),
+        ("Ignames (ñûmŸ) — culture principale des Kabyè. Plantation: mars-avril (LAKòò - ɔOMAŋ). Récolte: octobre-novembre (ALOMA - KAMèò). Variétés locales: kokoro, kponan, florido.", {"topic": "igname"}),
+        ("Sorgho et mil (Kabyè: céréales principales). Semailles: mai-juin (AGOZA - MòSòGúM). Récolte: septembre-octobre (SALAò - ALOMA). Base alimentaire des Kabyè.", {"topic": "cereales"}),
+        ("Maïs (Kabyè: deux saisons). 1ère saison: semailles avril (ɔOMAŋ), récolte juillet (HASòYAɔè). 2e saison: semailles août (KòYèNA), récolte novembre (KAMèò).", {"topic": "mais"}),
+        ("Haricots et niébé (Kabyè: légumineuses locales). Semailles avec les céréales. Fixent l'azote dans le sol. Culture associée fréquente avec maïs et sorgho.", {"topic": "legumineuses"}),
+        ("Arachides (Kabyè: culture de rente). Semailles début saison des pluies (AGOZA/Mai). Récolte septembre (SALAò). Transformation en huile et pâte.", {"topic": "arachides"}),
+        ("Coton (Kabyè: culture principale de rente, région KOZAH et BINAH). Semailles mai-juin. Récolte novembre-décembre. Vendu à la SOTOCO (société cotonnière Togo).", {"topic": "coton"}),
+        ("Soja (Kabyè: culture en développement). Semailles mai (AGOZA). Récolte août-septembre. Bon fixateur d'azote. Marché en croissance au Togo.", {"topic": "soja"}),
+        ("Irrigation Kabyè: rivières Kara et tributaires. Maraîchage en saison sèche (KüLAŋ à LAKòò = janvier à mars) le long des berges. Oignons, tomates, piments.", {"topic": "irrigation"}),
+        ("Fumure et compost Kabyè: utilisation des résidus de récolte. Fumier de bœuf et petit bétail. Pratique du zaï (poquets enrichis) pour améliorer la fertilité.", {"topic": "fertilisation"}),
+        ("Maladies cultures Kabyè: Striure du maïs (virus). Rouille du sorgho. Mildiou. Foreur des tiges (Busseola fusca). Traitement: insecticides bio, variétés résistantes.", {"topic": "phytosanitaire"}),
+        ("Marchés agricoles Kabyè: cycle de 7 jours. Marchés importants: Kara (quotidien), Piyà (Lundi/Hodo), Kozah (cycle KujukŸ). Vente ignames, céréales, légumes, bétail.", {"topic": "marches"}),
+        ("Outillage agricole traditionnel Kabyè: daba (houe), pioche, machette. Labour attelé (bœufs) en développement. Stockage en grenier (siloproblèmes aflatoxine).", {"topic": "outillage"}),
+        ("Jachère Kabyè: pratique de rotation terres/jachère pour régénération. Durée: 2-3 ans. Menacée par pression foncière. Agroforesterie comme alternative.", {"topic": "jachère"}),
+        ("Élevage associé agriculture Kabyè: bovins, caprins, ovins, volailles. Fumier valorisé. Vente au marché de Kara. Période de soudure (juillet-août): pression sur stocks.", {"topic": "elevage"}),
+        ("Calendrier des marchés hebdomadaires région KOZAH: KujukŸ(Dim)=Yàndÿ/Somdinà/Làzà. Hodo(Lun)=Piyà/Càƒÿ. CùlŸ(Mer)=Kàyàŋ/Sàràkàwàŋ. MàzàŋSam=Làzà/Làmà/PiyàLàw.", {"topic": "marches_kozah"}),
     ]
     retriever = KabyleRetriever()
     texts = [d[0] for d in agro_data]

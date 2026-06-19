@@ -1,7 +1,7 @@
 import anthropic
 
 from config import settings
-from agent.prompts import SYSTEM_PROMPT_KABYLE, TRANSLATION_PROMPT
+from agent.prompts import SYSTEM_PROMPT_KABYE as SYSTEM_PROMPT_KABYLE, TRANSLATION_PROMPT
 
 
 class KabyleAgroAgent:
