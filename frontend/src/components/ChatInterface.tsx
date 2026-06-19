@@ -1,7 +1,6 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import { Send, Loader2, Trash2 } from "lucide-react";
-import { v4 as uuidv4 } from "crypto";
 import { streamChat } from "@/lib/api";
 import { Message } from "@/types";
 import ChatMessage from "./ChatMessage";

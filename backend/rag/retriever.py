@@ -1,5 +1,4 @@
-from rag.embeddings import get_embedding_model, get_or_create_collection
-
+from rag.embeddings import get_or_create_collection
 
 COLLECTION_DICT = "kabyle_dictionary"
 COLLECTION_BIBLE = "kabyle_bible"
@@ -8,24 +7,27 @@ COLLECTION_AGRO = "kabyle_agro"
 
 class KabyleRetriever:
     def __init__(self):
-        self.model = get_embedding_model()
-        self.collections = {
-            "dict": get_or_create_collection(COLLECTION_DICT),
-            "bible": get_or_create_collection(COLLECTION_BIBLE),
-            "agro": get_or_create_collection(COLLECTION_AGRO),
-        }
+        self._collections = None
+
+    @property
+    def collections(self):
+        if self._collections is None:
+            self._collections = {
+                "dict": get_or_create_collection(COLLECTION_DICT),
+                "bible": get_or_create_collection(COLLECTION_BIBLE),
+                "agro": get_or_create_collection(COLLECTION_AGRO),
+            }
+        return self._collections
 
     def retrieve(self, query: str, n_results: int = 5) -> list[dict]:
-        embedding = self.model.encode(query).tolist()
         results = []
-
         for name, collection in self.collections.items():
             try:
                 count = collection.count()
                 if count == 0:
                     continue
                 res = collection.query(
-                    query_embeddings=[embedding],
+                    query_texts=[query],
                     n_results=min(n_results, count),
                     include=["documents", "metadatas", "distances"],
                 )
@@ -48,10 +50,8 @@ class KabyleRetriever:
 
     def add_documents(self, collection_name: str, texts: list[str], metadatas: list[dict], ids: list[str]):
         collection = get_or_create_collection(collection_name)
-        embeddings = self.model.encode(texts).tolist()
         collection.add(
             documents=texts,
-            embeddings=embeddings,
             metadatas=metadatas,
             ids=ids,
         )

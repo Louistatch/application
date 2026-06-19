@@ -10,7 +10,14 @@ from api.schemas import (
 from agent.kabyle_agent import KabyleAgroAgent
 
 router = APIRouter()
-agent = KabyleAgroAgent()
+_agent = None
+
+
+def get_agent() -> KabyleAgroAgent:
+    global _agent
+    if _agent is None:
+        _agent = KabyleAgroAgent()
+    return _agent
 
 
 @router.post("/chat", response_model=ChatResponse)
@@ -23,7 +30,7 @@ async def chat(req: ChatRequest):
             pass
 
         history = [{"role": m.role, "content": m.content} for m in req.history]
-        reply = agent.chat(req.message, history)
+        reply = get_agent().chat(req.message, history)
         return ChatResponse(reply=reply, language_detected=lang)
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
@@ -34,7 +41,7 @@ async def chat_stream(req: ChatRequest):
     history = [{"role": m.role, "content": m.content} for m in req.history]
 
     def generator():
-        for chunk in agent.stream_chat(req.message, history):
+        for chunk in get_agent().stream_chat(req.message, history):
             yield f"data: {chunk}\n\n"
         yield "data: [DONE]\n\n"
 
@@ -44,7 +51,7 @@ async def chat_stream(req: ChatRequest):
 @router.post("/translate", response_model=TranslationResponse)
 async def translate(req: TranslationRequest):
     try:
-        result = agent.translate(req.text, req.direction)
+        result = get_agent().translate(req.text, req.direction)
         return TranslationResponse(
             original=req.text,
             translated=result,

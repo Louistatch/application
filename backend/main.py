@@ -23,12 +23,7 @@ app.include_router(router, prefix="/api/v1")
 
 @app.on_event("startup")
 async def startup():
-    from rag.pipeline import ingest_agro_seed_data
-    from rag.retriever import KabyleRetriever
-    retriever = KabyleRetriever()
-    if retriever.collections["agro"].count() == 0:
-        print("Seeding agro vocabulary...")
-        ingest_agro_seed_data()
+    print("Amẓarug Aqbayli n Tẓuṛt n Wakal — ready.")
 
 
 if __name__ == "__main__":

@@ -1,25 +1,32 @@
 import anthropic
-from typing import AsyncGenerator
 
 from config import settings
 from agent.prompts import SYSTEM_PROMPT_KABYLE, TRANSLATION_PROMPT
-from rag.retriever import KabyleRetriever
 
 
 class KabyleAgroAgent:
     def __init__(self):
         self.client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
         self.model = settings.claude_model
-        self.retriever = KabyleRetriever()
+        self._retriever = None
+
+    def _get_retriever(self):
+        if self._retriever is None:
+            from rag.retriever import KabyleRetriever
+            self._retriever = KabyleRetriever()
+        return self._retriever
 
     def _build_context(self, query: str) -> str:
-        docs = self.retriever.retrieve(query, n_results=5)
+        try:
+            docs = self._get_retriever().retrieve(query, n_results=5)
+        except Exception:
+            return ""
         if not docs:
             return ""
-        context_parts = ["Isallen n umawal d corpus (contexte RAG):"]
+        parts = ["Isallen n umawal d corpus (contexte RAG):"]
         for doc in docs:
-            context_parts.append(f"- {doc['content']}")
-        return "\n".join(context_parts)
+            parts.append(f"- {doc['content']}")
+        return "\n".join(parts)
 
     def chat(self, message: str, history: list[dict]) -> str:
         context = self._build_context(message)
@@ -28,7 +35,6 @@ class KabyleAgroAgent:
             system += f"\n\n{context}"
 
         messages = history + [{"role": "user", "content": message}]
-
         response = self.client.messages.create(
             model=self.model,
             max_tokens=2048,
@@ -37,14 +43,13 @@ class KabyleAgroAgent:
         )
         return response.content[0].text
 
-    def stream_chat(self, message: str, history: list[dict]) -> AsyncGenerator:
+    def stream_chat(self, message: str, history: list[dict]):
         context = self._build_context(message)
         system = SYSTEM_PROMPT_KABYLE
         if context:
             system += f"\n\n{context}"
 
         messages = history + [{"role": "user", "content": message}]
-
         with self.client.messages.stream(
             model=self.model,
             max_tokens=2048,
